@@ -2,17 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Resume</title>
+    <title>Shyam R.S - Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Global Styles */
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f4f4f4;
+            --dark-bg: #121212;
+            --dark-text: #f4f4f4;
+            --transition: 0.3s;
+        }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: #f4f4f4;
+            background: var(--secondary-color);
             margin: 0;
             padding: 20px;
-            transition: background 0.3s, color 0.3s;
+            transition: background var(--transition), color var(--transition);
         }
 
         .container {
@@ -22,89 +31,102 @@
             padding: 40px;
             box-shadow: 0 0 15px #ccc;
             border-radius: 10px;
-            transition: background 0.3s;
+            transition: background var(--transition), color var(--transition);
         }
 
-        h1, h2 {
-            color: #0056b3;
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative; /* Enable absolute positioning for the image */
         }
 
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            border: 4px solid #0056b3;
-            transition: transform 0.3s;
+        /* Circular Profile Picture with Hover Effect */
+        header img {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 86, 179, 0.5);
+            transition: transform 0.3s ease-in-out;
         }
 
-        .profile-pic:hover {
+        header img:hover {
             transform: scale(1.1);
         }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        h1, h2, h3 {
+            color: var(--primary-color);
         }
 
-        .header div {
-            flex: 1;
+        .contact {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .header img {
-            max-width: 100%;
-            height: auto;
+        .contact p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .contact a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+
+        .contact a:hover {
+            color: #004494;
         }
 
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 40px;
+            transition: transform var(--transition), box-shadow var(--transition);
         }
 
         .section:hover {
-            background: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
         }
 
         .dark-mode {
-            background: #121212;
-            color: #f4f4f4;
+            background: var(--dark-bg);
+            color: var(--dark-text);
         }
 
         .dark-mode .container {
             background: #1e1e1e;
-            color: #f4f4f4;
+            color: var(--dark-text);
         }
 
-        .dark-mode h1, .dark-mode h2 {
+        .dark-mode h1, .dark-mode h2, .dark-mode h3 {
             color: #00aaff;
-        }
-
-        a {
-            text-decoration: none;
-            color: #fff;
-            background: #0056b3;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: inline-block;
-            transition: background 0.3s;
-        }
-
-        a:hover {
-            background: #004494;
         }
 
         button {
             display: block;
-            margin: 20px auto;
-            padding: 10px 25px;
+            width: 100%;
+            padding: 12px;
             background: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background var(--transition);
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
         }
 
         button:hover {
@@ -114,32 +136,52 @@
         footer {
             text-align: center;
             padding: 15px;
-            background: #0056b3;
+            margin-top: 30px;
+            background: var(--primary-color);
             color: #fff;
             border-radius: 5px;
         }
 
         footer a {
             color: #ffd700;
+            transition: color var(--transition);
         }
 
         footer a:hover {
             color: #fff;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                text-align: center;
+            .container {
+                padding: 20px;
             }
 
-            .profile-pic {
-                margin-bottom: 20px;
+            button {
+                width: 100%;
+            }
+
+            header img {
+                width: 100px;
+                height: 100px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
             }
 
             .container {
-                padding: 20px;
+                padding: 15px;
+            }
+
+            header img {
+                width: 80px;
+                height: 80px;
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
@@ -148,47 +190,87 @@
 
 <div class="container">
 
-    <div class="header">
-        <div>
-            <h1>Shyam's Resume</h1>
-        </div>
-        <img src="MyProfile.png" alt="Profile Picture" class="profile-pic">
+    <header>
+        <h1>SHYAM R.S</h1>
+        <p>Chennai, Tamilnadu-600018, India</p>
+        <img src="MyProfile.jpg" alt="Shyam R.S">
+    </header>
+
+    <div class="contact">
+        <p>📞 <a href="tel:+918825557169">+91 8825557169</a></p>
+        <p>📧 <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
+        <button onclick="toggleMode()">Toggle Dark Mode 🌙</button>
     </div>
 
-    <button onclick="toggleMode()">Toggle Dark Mode 🌙</button>
+    <div class="section">
+        <h2>Objective</h2>
+        <p>A motivated first-year Computer Science Engineering student at MSEC with a strong foundation
+            in programming, algorithms, data structures, and software development. Seeking an internship
+            opportunity to gain hands-on experience in computer science projects and enhance technical skills.</p>
+    </div>
 
     <div class="section">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
-        <p>Phone: <a href="tel:+918825557169">+91 8825557169</a></p>
+        <h2>Education</h2>
+        <ul>
+            <li>
+                <h3>Meenakshi Sundararajan Engineering College, Chennai</h3>
+                <p>Bachelor of Technology in Computer Science Engineering</p>
+                <p>Expected Graduation: 2028</p>
+                <p>CGPA: 8.12</p>
+            </li>
+            <li>
+                <h3>SVM Higher Secondary School, Chennai</h3>
+                <p>Higher Secondary (12th Grade)</p>
+                <p>Graduated: 03/2024 | Percent: 79.8%</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Projects</h2>
+
+        <h3>To-Do List Application</h3>
+        <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+        <ul>
+            <li>Developed an interactive to-do list application with features like adding, editing, and deleting tasks.</li>
+            <li>Implemented local storage to save tasks persistently.</li>
+            <li>GitHub: <a href="ToDoList.html" target="_blank">View Project</a></li>
+        </ul>
+
+        <h3>Quiz Application</h3>
+        <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+        <ul>
+            <li>Built a dynamic quiz platform with multiple-choice questions and a score-tracking system.</li>
+            <li>Implemented real-time feedback for correct and incorrect answers.</li>
+            <li>GitHub: <a href="Quiz.html" target="_blank">View Project</a></li>
+        </ul>
     </div>
 
     <div class="section">
         <h2>Skills</h2>
         <ul>
-            <li>Java, Python, C</li>
-            <li>HTML, CSS, MySQL</li>
-            <li>Git, GitHub, MATLAB</li>
+            <li>Programming Languages: Java, Python, C</li>
+            <li>Web Technologies: HTML, CSS, JavaScript, React, Bootstrap, Tailwind</li>
+            <li>Database Systems: MySQL</li>
+            <li>Version Control: Git, GitHub</li>
+            <li>Tools: PyCharm, WebStorm, IntelliJ IDEA,CLion,VS Code</li>
+            <li>Soft Skills: Problem-solving, teamwork, communication</li>
         </ul>
     </div>
 
     <div class="section">
-        <h2>Experience</h2>
-        <p>ATM Simulation Project (2024)</p>
+        <h2>Achievements & Certifications</h2>
         <ul>
-            <li>Built using Java, HTML, and CSS.</li>
-            <li>Secure PIN authentication.</li>
+            <li>Python Bootcamp – Angela Yu (Udemy)</li>
+            <li>Front-End Web Development Bootcamp – Angela Yu (Udemy)</li>
+            <li>Cybersecurity Fundamentals – Udemy</li>
         </ul>
-    </div>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="contact.html">Contact Me</a>
     </div>
 
 </div>
 
 <footer>
-    <p>© 2025 Shyam. All Rights Reserved. | <a href="contact.html">Contact Me</a></p>
+    <p>© 2025 Shyam R.S. All Rights Reserved. | <a href="mailto:shyamshyamshyam13@gmail.com">Contact Me</a></p>
 </footer>
 
 <script>

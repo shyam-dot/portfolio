@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz App</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #74EBD5, #ACB6E5);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s;
+        }
+
+        .container {
+            background: #fff;
+            width: 500px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transition: background 0.5s, box-shadow 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            text-align: right;
+            font-size: 18px;
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            background: #f1f1f1;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .options li:hover {
+            background: #d1e7dd;
+            transform: translateX(10px);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .reset-btn {
+            background: #dc3545 !important;
+        }
+
+        .reset-btn:hover {
+            background: #c82333 !important;
+        }
+
+        .score {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .summary {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 30px;
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: #f4f4f4;
+        }
+
+        .dark-mode .container {
+            background: #333;
+            color: #f4f4f4;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .dark-mode .options li {
+            background: #555;
+            color: #f4f4f4;
+        }
+
+        .dark-mode .btn {
+            background: #28a745;
+        }
+
+        .dark-mode .btn:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔥 Quiz App</h1>
+
+    <!-- Dark Mode Toggle -->
+    <button class="btn" onclick="toggleDarkMode()">Toggle Dark Mode 🌙</button>
+
+    <div class="timer">Time left: <span id="time">30</span>s</div>
+
+    <div class="question" id="question">Loading question...</div>
+
+    <ul class="options" id="options"></ul>
+
+    <button class="btn" onclick="nextQuestion()">Next</button>
+    <button class="btn reset-btn" onclick="resetQuiz()">Reset</button>
+
+    <div class="score" id="score">Score: 0</div>
+    <div class="summary" id="summary"></div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "What does HTML stand for?",
+            options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language", "High-Level Text Management Language"],
+            answer: "Hyper Text Markup Language"
+        },
+        {
+            question: "Which language runs in a web browser?",
+            options: ["Java", "C", "Python", "JavaScript"],
+            answer: "JavaScript"
+        },
+        {
+            question: "What does CSS stand for?",
+            options: ["Creative Style Sheets", "Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
+            answer: "Cascading Style Sheets"
+        },
+        {
+            question: "Which HTML tag is used to create a hyperlink?",
+            options: ["<a>", "<link>", "<href>", "<hyper>"],
+            answer: "<a>"
+        },
+        {
+            question: "Which property is used to change the text color in CSS?",
+            options: ["font-color", "text-style", "color", "background-color"],
+            answer: "color"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 30;
+
+    // Initialize quiz
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        timeLeft = 30;
+        document.getElementById('score').textContent = `Score: ${score}`;
+        document.getElementById('summary').textContent = '';
+        showQuestion();
+        startTimer();
+    }
+
+    // Display question and options
+    function showQuestion() {
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+
+        const currentQuestion = questions[currentQuestionIndex];
+        questionElement.textContent = currentQuestion.question;
+
+        optionsElement.innerHTML = '';
+        currentQuestion.options.forEach(option => {
+            const li = document.createElement('li');
+            li.textContent = option;
+            li.onclick = () => selectOption(li, option);
+            optionsElement.appendChild(li);
+        });
+    }
+
+    // Select answer
+    function selectOption(li, selectedAnswer) {
+        const currentQuestion = questions[currentQuestionIndex];
+
+        if (selectedAnswer === currentQuestion.answer) {
+            score += 10;
+            li.style.backgroundColor = '#28a745';  // Green for correct
+        } else {
+            li.style.backgroundColor = '#dc3545';  // Red for incorrect
+        }
+
+        document.querySelectorAll('.options li').forEach(item => {
+            item.onclick = null;
+        });
+
+        document.getElementById('score').textContent = `Score: ${score}`;
+    }
+
+    // Move to the next question
+    function nextQuestion() {
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+        } else {
+            clearInterval(timer);
+            displaySummary();
+        }
+    }
+
+    // Timer functionality
+    function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('time').textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                displaySummary();
+            }
+        }, 1000);
+    }
+
+    // Display final summary
+    function displaySummary() {
+        const summary = document.getElementById('summary');
+        summary.innerHTML = `🎯 Quiz Over! <br> Your Final Score: <strong>${score}</strong>`;
+    }
+
+    // Reset Quiz
+    function resetQuiz() {
+        clearInterval(timer);
+        startQuiz();
+    }
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    // Start the quiz
+    window.onload = startQuiz;
+</script>
+
+</body>
+</html>

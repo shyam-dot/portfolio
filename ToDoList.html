@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #74EBD5, #ACB6E5);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s ease;
+        }
+
+        .container {
+            background: #fff;
+            width: 420px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transition: background 0.5s, box-shadow 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #4CAF50;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 70%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 30%;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f1f1;
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+        }
+
+        li button {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        li button:hover {
+            background: #c82333;
+        }
+
+        .edit-btn {
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: #e0a800;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: #f4f4f4;
+        }
+
+        .dark-mode .container {
+            background: #333;
+            color: #f4f4f4;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .dark-mode li {
+            background: #555;
+            color: #f4f4f4;
+        }
+
+        .dark-mode input, .dark-mode button {
+            color: #fff;
+        }
+
+        .theme-toggle {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            li button {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✅ To-Do List</h1>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" onclick="toggleDarkMode()">Toggle Dark Mode 🌙</button>
+
+    <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <button onclick="addTask()">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    // Load tasks from localStorage
+    window.onload = () => {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => addTaskToDOM(task));
+    };
+
+    // Toggle Dark Mode
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    // Add new task
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText === '') {
+            alert('Please enter a task.');
+            return;
+        }
+
+        addTaskToDOM(taskText);
+        saveTask(taskText);
+        taskInput.value = '';
+    }
+
+    // Add task to the DOM
+    function addTaskToDOM(taskText) {
+        const li = document.createElement('li');
+
+        const taskSpan = document.createElement('span');
+        taskSpan.textContent = taskText;
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.classList.add('edit-btn');
+        editBtn.onclick = () => editTask(li, taskSpan);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteTask(li, taskText);
+
+        li.appendChild(taskSpan);
+        li.appendChild(editBtn);
+        li.appendChild(deleteBtn);
+
+        taskList.appendChild(li);
+    }
+
+    // Save task to localStorage
+    function saveTask(task) {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    // Edit task
+    function editTask(li, taskSpan) {
+        const newTaskText = prompt('Edit task:', taskSpan.textContent);
+        if (newTaskText) {
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            const index = tasks.indexOf(taskSpan.textContent);
+            if (index !== -1) {
+                tasks[index] = newTaskText;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                taskSpan.textContent = newTaskText;
+            }
+        }
+    }
+
+    // Delete task
+    function deleteTask(li, taskText) {
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        const filteredTasks = tasks.filter(task => task !== taskText);
+        localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+        li.remove();
+    }
+</script>
+
+</body>
+</html>

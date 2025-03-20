@@ -25,23 +25,80 @@
             transition: background 0.3s;
         }
 
-        h1 {
-            text-align: center;
+        h1, h2 {
             color: #0056b3;
+            text-align: center;
         }
 
-        .contact-info {
-            text-align: center;
-            line-height: 2;
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #218838;
         }
 
         a {
-            color: #0056b3;
             text-decoration: none;
+            color: #fff;
+            background: #0056b3;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background 0.3s;
+            text-align: center;
         }
 
         a:hover {
-            color: #004494;
+            background: #004494;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            background: #0056b3;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        footer a {
+            color: #ffd700;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #fff;
         }
 
         .dark-mode {
@@ -54,28 +111,45 @@
             color: #f4f4f4;
         }
 
-        button {
-            display: block;
-            margin: 20px auto;
-            padding: 12px 30px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .dark-mode h1, .dark-mode h2, .dark-mode a {
+            color: #00aaff;
         }
 
-        footer {
+        .dark-mode footer {
+            background: #1e1e1e;
+            color: #f4f4f4;
+        }
+
+        /* Contact Info Styles */
+        .contact-info {
             text-align: center;
-            background: #0056b3;
-            color: #fff;
-            padding: 15px;
-            border-radius: 5px;
+            margin-bottom: 30px;
         }
 
+        .contact-info p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .contact-info a {
+            color: #f3ecec;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: #f1e7e8;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 30px;
+            }
+
+            input, textarea, button, a {
+                width: 100%;
+                font-size: 14px;
             }
         }
     </style>
@@ -83,6 +157,8 @@
 <body>
 
 <div class="container">
+
+    <!-- Dark Mode Toggle Button -->
     <button onclick="toggleMode()">Toggle Dark Mode 🌙</button>
 
     <h1>Contact Me</h1>
@@ -90,12 +166,30 @@
     <div class="contact-info">
         <p>Email: <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
         <p>Phone: <a href="tel:+918825557169">+91 8825557169</a></p>
-        <p>Chennai, Tamil Nadu, India</p>
+    </div>
+
+    <form action="submit_form.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="6" placeholder="Your Message" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="index.html">← Back to Resume</a>
     </div>
 
 </div>
 
-<footer>© 2025 Shyam</footer>
+<footer>
+    <p>© 2025 Shyam. All Rights Reserved. | <a href="index.html">Back to Resume</a></p>
+</footer>
 
 <script>
     function toggleMode() {
