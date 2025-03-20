@@ -11,7 +11,7 @@
             color: #333;
             background: #f4f4f4;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
             transition: background 0.3s, color 0.3s;
         }
 
@@ -23,33 +23,62 @@
             box-shadow: 0 0 15px #ccc;
             border-radius: 10px;
             transition: background 0.3s;
-            position: relative;
-        }
-
-        /* Profile Image at Top-Left Corner */
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            object-fit: cover;
-            border: 4px solid #0056b3;
-            border-radius: 10px;
-            float: left;  /* Floating image to the top-left */
-            margin-right: 30px;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.05);
         }
 
         h1, h2 {
             color: #0056b3;
         }
 
-        ul, ol {
-            margin: 0;
-            padding: 0 20px;
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 4px solid #0056b3;
+            transition: transform 0.3s;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .header div {
+            flex: 1;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section:hover {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .dark-mode {
+            background: #121212;
+            color: #f4f4f4;
+        }
+
+        .dark-mode .container {
+            background: #1e1e1e;
+            color: #f4f4f4;
+        }
+
+        .dark-mode h1, .dark-mode h2 {
+            color: #00aaff;
         }
 
         a {
@@ -68,61 +97,23 @@
 
         button {
             display: block;
-            width: 200px;
-            padding: 12px 0;
+            margin: 20px auto;
+            padding: 10px 25px;
             background: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 30px;
         }
 
         button:hover {
             background: #218838;
         }
 
-        .dark-mode {
-            background: #121212;
-            color: #f4f4f4;
-        }
-
-        .dark-mode .container {
-            background: #1e1e1e;
-            color: #f4f4f4;
-        }
-
-        .dark-mode h1, .dark-mode h2, .dark-mode a {
-            color: #00aaff;
-        }
-
-        .section {
-            margin-bottom: 25px;
-            transition: background 0.3s, padding 0.3s;
-        }
-
-        .section:hover {
-            background: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-        }
-
-        .dark-mode .section:hover {
-            background: #333;
-        }
-
-        .contact {
-            text-align: center;
-            margin-top: 20px;
-        }
-
         footer {
             text-align: center;
             padding: 15px;
-            margin-top: 30px;
             background: #0056b3;
             color: #fff;
             border-radius: 5px;
@@ -130,24 +121,25 @@
 
         footer a {
             color: #ffd700;
-            transition: color 0.3s;
         }
 
         footer a:hover {
             color: #fff;
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .profile-pic {
-                width: 140px;
-                height: 140px;
-                float: none;
-                display: block;
-                margin: 0 auto 20px;
+            .header {
+                flex-direction: column;
+                text-align: center;
             }
 
-            button {
-                width: 100%;
+            .profile-pic {
+                margin-bottom: 20px;
+            }
+
+            .container {
+                padding: 20px;
             }
         }
     </style>
@@ -156,75 +148,41 @@
 
 <div class="container">
 
-    <!-- Profile Image at Top-Left Corner -->
-    <img src="MyProfile.jpg" alt="My Profile" class="profile-pic" />
+    <div class="header">
+        <div>
+            <h1>Shyam's Resume</h1>
+        </div>
+        <img src="MyProfile.png" alt="Profile Picture" class="profile-pic">
+    </div>
 
-    <!-- Dark Mode Toggle Button -->
     <button onclick="toggleMode()">Toggle Dark Mode 🌙</button>
 
-    <h1>My Resume</h1>
-
     <div class="section">
-        <h2>Summary</h2>
-        <p>Motivated first-year Computer Science Engineering student at MSEC with skills in programming, algorithms, and
-            software development. Seeking an internship to gain hands-on experience and enhance technical skills.</p>
-    </div>
-
-    <div class="section">
-        <h2>Education</h2>
-        <ul>
-            <li>Meenakshi Sundararajan Engineering College, Chennai
-                <ol>
-                    <li>Bachelor of Technology in Computer Science and Engineering (Expected: 2028)</li>
-                </ol>
-            </li>
-            <li>SVM Higher Secondary School, Chennai
-                <ol>
-                    <li>Higher Secondary (12th Grade), 79.8% (Graduated: 03/2024)</li>
-                </ol>
-            </li>
-        </ul>
-    </div>
-
-    <div class="section">
-        <h2>Experience</h2>
-        <ul>
-            <li>ATM Simulation Project (03/2024 – 09/2024)
-                <ol>
-                    <li>Built an automated banking system using Java, HTML, and CSS.</li>
-                    <li>Added secure PIN authentication and a user-friendly interface.</li>
-                </ol>
-            </li>
-        </ul>
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
+        <p>Phone: <a href="tel:+918825557169">+91 8825557169</a></p>
     </div>
 
     <div class="section">
         <h2>Skills</h2>
         <ul>
-            <li>Languages: Java, Python, C</li>
-            <li>Web: HTML, CSS</li>
-            <li>Database: MySQL</li>
-            <li>Tools: Git, GitHub, MATLAB, IntelliJ IDEA, VS Code</li>
-            <li>Soft Skills: Problem-solving, teamwork, communication</li>
+            <li>Java, Python, C</li>
+            <li>HTML, CSS, MySQL</li>
+            <li>Git, GitHub, MATLAB</li>
         </ul>
     </div>
 
     <div class="section">
-        <h2>Achievements</h2>
+        <h2>Experience</h2>
+        <p>ATM Simulation Project (2024)</p>
         <ul>
-            <li>Awards: Best Student of the Year (2023), Excellence in Programming (2022-2023)</li>
-            <li>HackerRank: Solved 50+ problems, earned proficiency badges (2024)</li>
-            <li>Certifications:
-                <ol>
-                    <li>Python Programming (Udemy, 12/2024)</li>
-                    <li>Full Stack Development (CSC Mylapore, 12/2024)</li>
-                </ol>
-            </li>
+            <li>Built using Java, HTML, and CSS.</li>
+            <li>Secure PIN authentication.</li>
         </ul>
     </div>
 
-    <div class="contact">
-        <h2><a href="contact.html">Contact Me Here</a></h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="contact.html">Contact Me</a>
     </div>
 
 </div>

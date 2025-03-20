@@ -35,15 +35,9 @@
             line-height: 2;
         }
 
-        p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
-
         a {
             color: #0056b3;
             text-decoration: none;
-            transition: color 0.3s;
         }
 
         a:hover {
@@ -60,10 +54,6 @@
             color: #f4f4f4;
         }
 
-        .dark-mode h1, .dark-mode a {
-            color: #00aaff;
-        }
-
         button {
             display: block;
             margin: 20px auto;
@@ -73,40 +63,19 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #218838;
         }
 
         footer {
             text-align: center;
-            padding: 15px;
-            margin-top: 30px;
             background: #0056b3;
             color: #fff;
+            padding: 15px;
             border-radius: 5px;
-        }
-
-        footer a {
-            color: #ffd700;
-            transition: color 0.3s;
-        }
-
-        footer a:hover {
-            color: #fff;
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 30px;
-            }
-
-            p, button {
-                font-size: 16px;
+                padding: 20px;
             }
         }
     </style>
@@ -114,27 +83,19 @@
 <body>
 
 <div class="container">
-
-    <!-- Dark Mode Toggle Button -->
     <button onclick="toggleMode()">Toggle Dark Mode 🌙</button>
 
     <h1>Contact Me</h1>
 
     <div class="contact-info">
-        <p><strong>Email:</strong> <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
-        <p><strong>Phone:</strong> <a href="tel:+918825557169">+91 8825557169</a></p>
-        <p><strong>Location:</strong> Chennai, Tamil Nadu, India</p>
-    </div>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="index.html">← Back to Resume</a>
+        <p>Email: <a href="mailto:shyamshyamshyam13@gmail.com">shyamshyamshyam13@gmail.com</a></p>
+        <p>Phone: <a href="tel:+918825557169">+91 8825557169</a></p>
+        <p>Chennai, Tamil Nadu, India</p>
     </div>
 
 </div>
 
-<footer>
-    <p>© 2025 Shyam. All Rights Reserved. | <a href="index.html">Back to Resume</a></p>
-</footer>
+<footer>© 2025 Shyam</footer>
 
 <script>
     function toggleMode() {
